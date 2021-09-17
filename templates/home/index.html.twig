@@ -3,17 +3,59 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<main>
+		<div class="w-full flex">
+			{% for imageLink in imageList %}
+				<div id="ImageFront{{loop.index}}" class="slide relative animate-fade">
+					<img src="{{imageLink}}" alt="" class="w-full">
+					<span class=" text-center w-full absolute bottom-8">{{loop.index}}</span>
+				</div>
+			{% endfor %}
+			<a class="prev top-28 text-4xl cursor-pointer text-bold md:top-1/4 hover:bg-purple-600 hover:bg-opacity-25 left-0 p-5 absolute" onclick="plusSlides(-1)">&#10094;</a>
+			<a class="next top-28 text-4xl cursor-pointer text-bold md:top-1/4 hover:bg-purple-600 hover:bg-opacity-25 right-0 p-5 absolute" onclick="plusSlides(1)">&#10095;</a>
+		</div>
+	</main>
+	{% block JS %}
+		<script type="text/javascript">
+			let slide = document.querySelectorAll(".slide");
+			for (const [key, value] of Object.entries(slide)){
+				value.style.display = "none"
+			}
+			slide[0].style.display = "block";
 
-<div class="example-wrapper">
-    <h1 class="text-red-500">Hello! ✅</h1>
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'B:/gitLibrary/cuisneApp/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'B:/gitLibrary/cuisneApp/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-</div>
+			function plusSlides(n) {
+				console.log(n)
+				showSlides(n);
+			}
+	
+			function showSlides(slideN){
+				let slide = document.querySelectorAll(".slide");
+
+				for (const [key, value] of Object.entries(slide)){
+					if(value.style.display === "block" && slideN == 1) {
+						value.style.display = "none";
+						let next = (parseInt(key)+1) > slide.length-1 ? 0 : (parseInt(key)+1)
+						console.log(next, slide[next])
+						slide[next].style.display = "block";
+						break;
+					}else if(value.style.display === "block" && slideN == -1) {
+						value.style.display = "none";
+						let next = (parseInt(key)-1) < 0 ? slide.length-1 : (parseInt(key)-1)
+						console.log(next, slide[next])
+						slide[next].style.display = "block";
+						break;
+					}
+				}
+			}
+		</script>
+	{% endblock %}
+{% endblock %}
+{% block footer %}
+	<footer class="bottom-0 fixed w-full text-cuisse-paleCerulean bg-cuisse-dark">
+		<div>Icons made by 
+			<a href="https://www.freepik.com" title="Freepik">Freepik</a>
+			from
+			<a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+		</div>
+	</footer>
 {% endblock %}

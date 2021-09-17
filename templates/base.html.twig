@@ -1,45 +1,72 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <meta name="author" content="DrLokki">
-        <meta name="description" content="Receuille de recette de cuisine">
+	<head>
+		<meta charset="UTF-8">
+		<title>{% block title %}Welcome!{% endblock %}</title>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta name="author" content="DrLokki">
+		<meta name="description" content="Receuille de recette de cuisine">
 
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}           
-        {% endblock %}
+		{# Run `composer require symfony/webpack-encore-bundle`
+		   and uncomment the following Encore helpers to start using Symfony UX #}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}		   
+		{% endblock %}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
-    </head>
-    <body class="bg-gray-100">
-    <button class="sticky bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"  onClick="openNav()"></button>
-        <nav class="transition duration-500 ease-in-out mySidenav bg-cuisse overflow-x-hidden w-0 top-0 left-0 z-1 h-full fixed">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            
-            <a href="/">Home</a>
-            <a href="/#">RecetteList</a>
-            <a href="/#">AddRecette</a>
-            <a href="/#">credit</a>
-        </nav>
-        {% block body %}{% endblock %}
+		{% block javascripts %}
+			{#{{ encore_entry_script_tags('app') }}#}
+		{% endblock %}
+	</head>
+	<body class="bg-cuisse-columbia">
+	<header class="z-20 shadow-lg bg-cuisse-dark h-12 flex justify-between items-center">
+		<button class="sticky bg-cuisse-beau hover:bg-cuisse-dark hover:text-cuisse-paleCerulean text-cuisse-dark font-bold px-2 py-1 mx-2 rounded"  onClick="openNav()">Menu</button>
+		
+		<div class="flex  h-full sm:divide-x-2 divide-green-500">
+			<div class="sm:block hidden hover:text-cuisse-dark hover:bg-cuisse-beau text-cuisse-paleCerulean bg-cuisse-dark text-cuisse-paleCerulean">
+				<input class=" h-full" type="text">
+				<button class="h-full px-1 ">search</button>
+			</div>
+			<div class="">
+				<button class="bg-cuisse-dark hover:text-cuisse-dark hover:bg-cuisse-beau text-cuisse-paleCerulean w-52 h-full ">Connexion</button>
+				<div class="bg-cuisse-dark hover:text-cuisse-dark hover:bg-cuisse-beau text-cuisse-paleCerulean h-full hidden">#déconnection</div>
+			</div>
+		</div>
+	</header>
+	<nav class="shadow transition duration-500 ease-in-out mySidenav bg-cuisse overflow-x-hidden w-0 top-0 left-0 z-10 h-full fixed flex flex-col divide-y divide-cuisse-columbia divide-y-reverse text-2xl pt-12">
+		<a href="javascript:void(0)" class="text-3xl text-right closebtn mt-1 mb-1 px-5" onClick="closeNav()">&times;</a>
+		<div class="flex visible sm:hidden bg-cuisse-dark text-cuisse-paleCerulean">
+			<input class="h-full w-2/3" type="text">
+			<button class="h-full w-1/3 text-sm">search</button>
+		</div> 
+		<a href="/" class="p-2 pl-5" >Home</a>
+		<a href="/#" class="p-2 pl-5" >RecetteList</a>
+		<a href="/recipAdd" class="p-2 pl-5" >AddRecette</a>
+		<a href="/#" class="p-2 pl-5" >credit</a>
+	</nav>
+	{% block body %}{% endblock %}
 
-    <script>
-        function openNav() {
-          document.querySelector(".mySidenav").style.width = "250px";
-        }
-        
-        function closeNav() {
-          document.querySelector(".mySidenav").style.width = "0";
-        }
-    </script>
-
-    </body>
+	<script>
+		function openNav() {
+		  document.querySelector(".mySidenav").style.width = "250px";
+		}
+		
+		function closeNav() {
+		  document.querySelector(".mySidenav").style.width = "0";
+		}
+	</script>
+	{% block JS %}
+	{% endblock %}
+	{% block footer %}
+		<footer class="bottom-0 relative i5:fixed w-full text-cuisse-paleCerulean 	bg-cuisse-dark">
+			<div>Icons made by 
+				<a href="https://www.freepik.com" title="Freepik">Freepik</a>
+				from
+				<a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+			</div>
+		</footer>
+	{% endblock %}
+	
+	</body>
 </html>

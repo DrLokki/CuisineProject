@@ -6,6 +6,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     screens: {
+      i5: '321px',
       sm: '640px',
       md: '768px',
       lg: '1024px',
@@ -32,7 +33,8 @@ module.exports = {
         columbia: "#CFE8EF",
         beau:"#C6DBF0",
         paleCerulean:"#A0C4E2",
-        sky:"#85C7DE"
+        sky:"#85C7DE",
+        dark:"#112A46"
       }
 
     },
@@ -74,6 +76,7 @@ module.exports = {
       96: '24rem',
     },
     animation: {
+      fade: 'fade 1.5s',
       none: 'none',
       spin: 'spin 1s linear infinite',
       ping: 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite',
@@ -459,6 +462,14 @@ module.exports = {
       '-full': '-100%',
     }),
     keyframes: {
+      fade: {
+        from: {
+          opacity: ".4",
+        },
+        to: {
+          opacity: "1",
+        },
+      },
       spin: {
         to: {
           transform: 'rotate(360deg)',

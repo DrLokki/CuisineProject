@@ -3,18 +3,126 @@
 {% block title %}Hello RecipiceController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'B:/gitLibrary/cuisneApp/src/Controller/RecipiceController.php'|file_link(0) }}">src/Controller/RecipiceController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'B:/gitLibrary/cuisneApp/templates/recipice/index.html.twig'|file_link(0) }}">templates/recipice/index.html.twig</a></code></li>
-    </ul>
+<div class="mt-5">
+	{{ form_start(form,{'attr': {'class':'flex flex-col items-center '}}) }}
+		<div class="flex justify-center items-center flex-col i5:flex-row border-b-2 border-cuisse-dark">
+			{{ form_label(form.name) }}
+			{{ form_widget(form.name) }}
+			<span class="text-red-500 font-black">{{form_errors(form.name)}}</span>
+		</div>
+		<div class="flex justify-center items-center flex-col i5:flex-row border-b-2 border-cuisse-dark">
+			{{ form_label(form.makeTime) }}
+			{{ form_widget(form.makeTime) }}
+			<span class="text-red-500 font-black">{{form_errors(form.makeTime)}}</span>
+		</div>
+		<h3>Liste des ingrédients : </h3>
+		<div class="sous-form border-2 border-cuisse-dark mx-2">
+			{{ form_widget(form.ingredient) }}
+			<span class="flex justify-center">
+				<button type="button" onclick="addIngredient()" class="bg-cuisse-sky rounded-xl px-2 m-1">add</button>
+				<button type="button" onclick="subIngredient()" class="bg-cuisse-sky rounded-xl px-2 m-1">sub</button>
+			</span>
+		</div>
+		<h3>étape de la recette : </h3>
+		<div class="steps border-2 border-cuisse-dark mx-2">
+			{{ form_widget(form.step) }}
+			<span class="flex justify-center">
+				<button type="button" onclick="addSteps()" class="bg-cuisse-sky rounded-xl px-2 m-1">add</button>
+				<button type="button" onclick="subSteps()" class="bg-cuisse-sky rounded-xl px-2 m-1">sub</button>
+			</span>
+		</div>
+		
+		{{ form_row(form.submit) }}
+	{{ form_end(form) }}
 </div>
+	{% block JS %}
+		<script type="text/javascript">
+			let element = document.getElementById("add_recip_ingredient");
+			let subForm = element.getAttribute("data-prototype");
+			
+			let counter = 1;
+			subForm = subForm.replace(/__name__label__/g,"ingrédient N°"+counter)
+				.replaceAll(/__name__/g,counter)
+				.replaceAll(/<div>/g,'<div class="mx-1">')
+				.replaceAll(/<input/g,'<input class="rounded shadow-sm"')
+				.replaceAll(/class="required"/g,'class="required flex"');
+
+			element.setAttribute("data-counter",counter);
+			element.innerHTML = subForm;
+
+			element = document.getElementById("add_recip_step");
+			subForm = element.getAttribute("data-prototype");
+
+			subForm = subForm.replace(/__name__label__/g,"étape N°"+counter)
+				.replaceAll(/__name__/g,counter)
+				.replaceAll(/<div>/g,'<div class="mx-1">')
+				.replaceAll(/<input/g,'<input class="rounded shadow-sm"')
+				.replaceAll(/class="required"/g,'class="required flex"');
+
+			element.setAttribute("data-counter",counter);
+			element.innerHTML = subForm;
+		</script>
+		<script type="text/javascript">
+			function addIngredient() {
+				let element = document.getElementById("add_recip_ingredient");
+				let subForm = element.getAttribute("data-prototype");
+			
+				let counter = element.getAttribute("data-counter");
+				counter++
+				subForm = subForm.replace(/__name__label__/g,"ingrédient N°"+counter)
+					.replaceAll(/__name__/g,counter)
+					.replaceAll(/<div>/g,'<div class="mx-1">')
+					.replaceAll(/<input/g,'<input class="rounded shadow-sm"')
+					.replaceAll(/class="required"/g,'class="required flex"');
+
+				element.setAttribute("data-counter",counter);
+				element.innerHTML += subForm;
+			}
+
+			function subIngredient() {
+				let element = document.getElementById("add_recip_ingredient");
+				let counter = element.getAttribute("data-counter");
+				
+				counter = parseInt(counter);
+				if (counter > 1) {
+					counter--;
+					element.setAttribute("data-counter",counter);
+					element.removeChild(element.lastChild);
+				}
+				
+			}
+
+
+			function addSteps() {
+				let element2 = document.getElementById("add_recip_step");
+				let subForm2 = element2.getAttribute("data-prototype");
+				
+				let counter2 = element2.getAttribute("data-counter");
+				counter2++;
+				subForm2 = subForm2.replace(/__name__label__/g,"étape N°"+counter2)
+					.replaceAll(/__name__/g,counter2)
+					.replaceAll(/<div>/g,'<div class="mx-1">')
+					.replaceAll(/<input/g,'<input class="rounded shadow-sm"')
+					.replaceAll(/class="required"/g,'class="required flex"');
+
+				element2.setAttribute("data-counter",counter2);
+				element2.innerHTML += subForm2;
+			}
+
+			function subSteps() {
+				let element2 = document.getElementById("add_recip_step");
+				let counter2 = element2.getAttribute("data-counter");
+				
+				counter2 = parseInt(counter2);
+				if (counter2 > 1) {
+					counter2--;
+					element2.setAttribute("data-counter",counter2);
+					element2.removeChild(element2.lastChild);
+				}
+				
+			}
+
+		</script>
+	{% endblock %}
 {% endblock %}
