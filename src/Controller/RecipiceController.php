@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ingredient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Recip;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\AddIngredientType;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,11 +15,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class RecipiceController extends AbstractController
 {
 
+    private entityManager;
+
     /**
      * Class Constructor
      */
-    public function __construct()
+    public function __construct(EntityManagerInterface $entityManager)
     {
+        $this->entityManager = $entityManager;
         
     }
 
@@ -33,7 +37,11 @@ class RecipiceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($form, $recip);
+            foreach ($recip->getIngredient() as $value) {
+                $this->entityManager->persist($value);
+            }
+            $this->entityManager->persist($recip);
+            $this->entityManager->flush();
         }
 
         return $this->render('recipice/index.html.twig', [
