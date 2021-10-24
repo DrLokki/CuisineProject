@@ -28,9 +28,18 @@
 				<input class=" h-full" type="text">
 				<button class="h-full px-1 ">search</button>
 			</div>
-			<div class="">
-				<button class="bg-cuisse-dark hover:text-cuisse-dark hover:bg-cuisse-beau text-cuisse-paleCerulean w-52 h-full ">Connexion</button>
-				<div class="bg-cuisse-dark hover:text-cuisse-dark hover:bg-cuisse-beau text-cuisse-paleCerulean h-full hidden">#déconnection</div>
+			<div class="flex ">
+				{% if app.user %}
+					<div class="self-center">
+						<a href="{{path('app_logout')}}" class="bg-cuisse-dark hover:text-cuisse-dark hover:bg-cuisse-beau text-cuisse-paleCerulean w-52 h-full text-center align-middle">déconnection</a>
+					</div>	
+				{% else %}
+					<div class="self-center">
+						<a href="{{path('app_login')}}" class="bg-cuisse-dark hover:text-cuisse-dark hover:bg-cuisse-beau text-cuisse-paleCerulean w-52 h-full mx-2">Connexion</a>
+						<br>
+						<a href="{{path('register')}}" class="bg-cuisse-dark hover:text-cuisse-dark hover:bg-cuisse-beau text-cuisse-paleCerulean w-52 h-full mx-2">Inscription</a>
+					</div>	
+				{% endif %}
 			</div>
 		</div>
 	</header>
@@ -41,7 +50,7 @@
 			<button class="h-full w-1/3 text-sm">search</button>
 		</div> 
 		<a href="/" class="p-2 pl-5" >Home</a>
-		<a href="/#" class="p-2 pl-5" >RecetteList</a>
+		<a href="{{path('recip_list')}}" class="p-2 pl-5" >RecetteList</a>
 		<a href="/recipAdd" class="p-2 pl-5" >AddRecette</a>
 		<a href="/#" class="p-2 pl-5" >credit</a>
 	</nav>
