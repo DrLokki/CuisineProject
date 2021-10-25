@@ -29,7 +29,7 @@ class RegisterController extends AbstractController
 
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user);
-        $notif = "re";
+        $notif = "";
 
         $form->handleRequest($request);
 

@@ -3,8 +3,21 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-    <main>
-       {{ form(form) }}
+    <main class="mt-5">
+        {{ form_start(form,{'attr': {'class':'flex flex-col items-center '}}) }}
+        <h1 class="h3 mb-3 font-weight-normal">Inscrivez vous</h1>
+        <div class="flex justify-center items-center flex-col i5:flex-row border-b-2 border-cuisse-dark pb-1 ">
+            {{ form_label(form.email) }}
+            {{ form_widget(form.email) }}
+            <span class="text-red-500 font-black">{{form_errors(form.email)}}</span>
+        </div>
+        <div class="flex justify-center items-center flex-col i5:flex-row border-b-2 border-cuisse-dark pb-1 my-2">
+            {{ form_label(form.password) }}
+            {{ form_widget(form.password) }}
+            <span class="text-red-500 font-black">{{form_errors(form.password)}}</span>
+        </div>
+        {{ form_row(form.submit,{'attr': {'class':'bg-cuisse-beau text-cuisse-dark px-2 font-bold rounded-lg border-solid border-4 border-cuisse-dark hover:border-cuisse'}}) }}
+        {{ form_end(form) }}
        {{ notification }}
     </main> 
 {% endblock %}
