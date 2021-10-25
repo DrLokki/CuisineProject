@@ -39,6 +39,11 @@ class Ingredient
      */
     private $recips;
 
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
+    private $unity;
+
     public function __construct()
     {
         $this->recips = new ArrayCollection();
@@ -108,6 +113,18 @@ class Ingredient
         if ($this->recips->removeElement($recip)) {
             $recip->removeIngredient($this);
         }
+
+        return $this;
+    }
+
+    public function getUnity(): ?string
+    {
+        return $this->unity;
+    }
+
+    public function setUnity(string $unity): self
+    {
+        $this->unity = $unity;
 
         return $this;
     }
