@@ -27,7 +27,7 @@ class RecipiceController extends AbstractController
     }
 
     #[Route('/recipAdd', name: 'recipAdd')]
-    public function index(Request $request): Response
+    public function add(Request $request): Response
     {
         $ingredient = new Ingredient();
         $recip = new Recip();
@@ -44,8 +44,26 @@ class RecipiceController extends AbstractController
             $this->entityManager->flush();
         }
 
-        return $this->render('recipice/index.html.twig', [
+        return $this->render('recipice/add.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/listeRecette', name: 'recip_list')]
+    public function index(): Response
+    {
+        $listRecip = $this->entityManager->getRepository(Recip::class)->findAllWithCount();
+        return $this->render('recip_list/index.html.twig', [
+            'list' => $listRecip,
+        ]);
+    }
+
+    #[Route('/recette/{slug}', name: 'recip')]
+    public function recette($slug): Response
+    {
+        $recip = $this->entityManager->getRepository(Recip::class)->findOneByName(urldecode($slug));
+        return $this->render('recipice/recip.html.twig', [
+            'recip' => $recip,
         ]);
     }
 }

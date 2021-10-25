@@ -19,22 +19,21 @@ class RecipRepository extends ServiceEntityRepository
         parent::__construct($registry, Recip::class);
     }
 
-    // /**
-    //  * @return Recip[] Returns an array of Recip objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Recip[] Returns an array of Recip objects
+     */
+    
+    public function findAllWithCount($value=1)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->select('i','r')
+            ->setMaxResults(10*$value)
+            ->innerJoin('r.ingredient','i')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Recip
