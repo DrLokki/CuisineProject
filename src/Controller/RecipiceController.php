@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class RecipiceController extends AbstractController
 {
 
-    private entityManager;
+    private $entityManager;
 
     /**
      * Class Constructor
