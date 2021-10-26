@@ -46,10 +46,11 @@
 	</header>
 	<nav class="shadow transition duration-500 ease-in-out mySidenav bg-cuisse overflow-x-hidden w-0 top-0 left-0 z-10 h-full fixed flex flex-col divide-y divide-cuisse-columbia divide-y-reverse text-2xl pt-12">
 		<a href="javascript:void(0)" class="text-3xl text-right closebtn mt-1 mb-1 px-5" onClick="closeNav()">&times;</a>
-		<div class="flex visible sm:hidden bg-cuisse-dark text-cuisse-paleCerulean">
-			<input class="h-full w-2/3" type="text">
-			<button class="h-full w-1/3 text-sm">search</button>
-		</div> 
+		<form class="flex visible sm:hidden bg-cuisse-dark text-cuisse-paleCerulean">
+			<input id="search_search" name="search[search]" class="h-full w-2/3" type="text">
+			<button type="submit" id="search_submit" name="search[submit]" class="h-full w-1/3 flex justify-center"><img src="{{asset('magnifier.png')}}" alt=""  class="h-10"></button>
+			<input type="hidden" id="search__token" name="search[_token]" value="{{ csrf_token('search') }}">
+		</form> 
 		<a href="/" class="p-2 pl-5" >Home</a>
 		<a href="{{path('recip_list')}}" class="p-2 pl-5" >RecetteList</a>
 		<a href="/recipAdd" class="p-2 pl-5" >AddRecette</a>
