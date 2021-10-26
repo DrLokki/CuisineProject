@@ -34,16 +34,21 @@ class RecipRepository extends ServiceEntityRepository
         ;
     }
     
-
-    /*
-    public function findOneBySomeField($value): ?Recip
+    /**
+     * @return Recip[] Returns an array of Recip objects
+     */
+    
+    public function findAllByName($name,$limite=1)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('r.name LIKE :name')
+            ->setParameter('name', '%'.$name.'%')
+            ->select('i','r')
+            ->setMaxResults(10*$limite)
+            ->innerJoin('r.ingredient','i')
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
         ;
     }
-    */
+    
 }

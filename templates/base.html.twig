@@ -24,10 +24,11 @@
 		<button class="sticky bg-cuisse-beau hover:bg-cuisse-dark hover:text-cuisse-paleCerulean text-cuisse-dark font-bold px-2 py-1 mx-2 rounded"  onClick="openNav()">Menu</button>
 		
 		<div class="flex  h-full sm:divide-x-2 divide-green-500">
-			<div class="sm:block hidden hover:text-cuisse-dark hover:bg-cuisse-beau text-cuisse-paleCerulean bg-cuisse-dark text-cuisse-paleCerulean">
-				<input class=" h-full" type="text">
-				<button class="h-full px-1 ">search</button>
-			</div>
+			<form action="{{path('recip_list')}}" name="recip_list" method="post" class="sm:block hidden hover:text-cuisse-dark hover:bg-cuisse-beau text-cuisse-paleCerulean bg-cuisse-dark text-cuisse-paleCerulean">
+				<input id="search_search" name="search[search]" class=" h-full" type="text">
+				<button type="submit" id="search_submit" name="search[submit]" class="h-full px-1 ">search</button>
+				<input type="hidden" id="search__token" name="search[_token]" value="{{ csrf_token('search') }}">
+			</form>
 			<div class="flex ">
 				{% if app.user %}
 					<div class="self-center">

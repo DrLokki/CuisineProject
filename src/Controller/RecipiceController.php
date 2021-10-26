@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Ingredient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Recip;
+use App\Classes\Search;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\AddIngredientType;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\AddRecipType;
+use App\Form\SearchType;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RecipiceController extends AbstractController
@@ -50,9 +52,19 @@ class RecipiceController extends AbstractController
     }
 
     #[Route('/listeRecette', name: 'recip_list')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        $listRecip = $this->entityManager->getRepository(Recip::class)->findAllWithCount();
+        $search = new Search();
+        $form = $this->createForm(SearchType::class,$search);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $listRecip = $this->entityManager->getRepository(Recip::class)->findAllByName($search->search);
+        }
+        else {
+            $listRecip = $this->entityManager->getRepository(Recip::class)->findAllWithCount();
+        }
+        
         return $this->render('recip_list/index.html.twig', [
             'list' => $listRecip,
         ]);
